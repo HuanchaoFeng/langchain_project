@@ -1,0 +1,9 @@
+from langchain_openai.embeddings import OpenAIEmbeddings
+from config import API_KEY
+
+
+embedding_model = OpenAIEmbeddings(
+    api_key = API_KEY,
+    base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model = "text-embedding-v4"
+)

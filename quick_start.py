@@ -2,10 +2,11 @@ import os
 import getpass
 from langchain_openai import ChatOpenAI
 from langchain.messages import HumanMessage, SystemMessage, AIMessage
+from config import API_KEY
 
 qwen_flash = ChatOpenAI(
     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-    api_key="sk-d9b21546c7834606842410a43b284a03",
+    api_key=API_KEY,
     model="qwen-flash"
 )
 

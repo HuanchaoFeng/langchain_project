@@ -1,8 +1,12 @@
+import sys
+from pathlib import Path
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.append(str(ROOT))
 from langchain.tools import tool
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 from langchain.messages import HumanMessage, SystemMessage, AIMessage, ToolMessage
-
+from config import API_KEY
 @tool
 def get_weather(location:str) -> str:
     """必须使用本工具来查询指定地点当前天气情况。输入为城市名称，返回天气描述。"""
@@ -15,8 +19,8 @@ def do_end() -> str:
     return "Ending"
 
 model = ChatOpenAI(
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-    api_key="sk-d9b21546c7834606842410a43b284a03",
+    base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    api_key = API_KEY,
     model = "qwen-plus"
 )
 
@@ -63,11 +67,10 @@ while step < max_step and agent_state == "Running":
         print(f"调用结果：{result}")
 
         messages.append(resp)
-        messages.append({
-                "role": "tool",
-                "tool_call_id": tool_call["id"],
-                "content": result
-        })
+        messages.append(ToolMessage(
+            content=result, 
+            tool_call_id=tool_call["id"]
+        ))
         if tool_name == "do_end":
             print("ReAct流程结束")
             agent_state = "Finished"
@@ -78,8 +81,7 @@ while step < max_step and agent_state == "Running":
         print(resp.content)
         agent_state = "Finished"
 
-
-
+print(f"本次对话结果：{messages}")
 
 
 
