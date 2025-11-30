@@ -102,7 +102,11 @@ react_agent = workflow.compile()
 
 # 可视化
 from IPython.display import Image, display
-display(Image(react_agent.get_graph(xray=True).draw_mermaid_png()))
+graph = react_agent.get_graph(xray=True)
+data = graph.draw_mermaid_png()
+with open("/home/data1/hcfeng/langchain_project/langGraph_project/tool_node.png", "wb") as f:
+    f.write(data)
+
 
 # 执行
 from langchain.messages import HumanMessage
