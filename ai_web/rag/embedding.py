@@ -7,8 +7,6 @@ from settings.local import QWEN_API_KEY, QWEN_EMBEDDING_MODEL
 from milvus_util import milvus_insert
 # 嵌入模块：用于把document转变为嵌入向量、存入向量数据库
 
-
-
 def get_embed_model():
     embedding_model = DashScopeEmbeddings(
         dashscope_api_key = QWEN_API_KEY,

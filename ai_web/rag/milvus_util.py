@@ -71,7 +71,7 @@ def milvus_insert(datas, collection_name):
     )
     return result
 
-# 查询数据
+# RAG查询top k数据
 def milvus_search(query, embedding_model, collection_name):
 
     query_vector = embedding_model.embed_query(query)
@@ -90,9 +90,27 @@ def milvus_search(query, embedding_model, collection_name):
 
     return final_result
 
+# 普通字段查询
+def select_common(doc_id, collection_name):
+    
+    res = client.query(
+        collection_name=collection_name,
+        filter=f"doc_id == '{doc_id}'",
+        output_fields=["id", "doc_id", "chunk"]
+    )
+
+    return res
+
 if __name__ == "__main__":
     # 测试函数
-    query_vector = [0.3580376395471989]*1024
-    datas = [{"doc_id":"text", "chunk":"what's this?", "vector":query_vector}]
+
+    # 插入数据
+    # query_vector = [0.3580376395471989]*1024
+    # datas = [{"doc_id":"text", "chunk":"what's this?", "vector":query_vector}]
+    # collection_name = "rag_test"
+    # milvus_insert(datas, collection_name)
+
+    # 普通查询
+    doc_id = "text"
     collection_name = "rag_test"
-    milvus_insert(datas, collection_name)
+    print(f"查询结果：{select_common(doc_id, collection_name)}")

@@ -2,10 +2,11 @@
 
 ## 项目目标:实现能够完成合同审查、文案审查以及通用对话的智能AI审查系统
 
+## **tip:** 可能有一堆bug + 不符合企业要求，因为这是Huanchao Feng根据实习时的项目思路构思的一个系统，没有用户反馈和产品规划
+
 ## Author: Huanchao Feng
 
 ## 项目入口：./ai_web
-## 基础用例：wo ai_web
 
 ## 项目技术：
 FastAPI + LangGraph + Langchain + SQLite + PostgreSQL/Mysql
@@ -17,7 +18,7 @@ FastAPI + LangGraph + Langchain + SQLite + PostgreSQL/Mysql
 
 ## 1、完成文档收集、清洗与向量存储(当前阶段)
 
-* 加载文档、切分、嵌入、写入Milvus向量数据库（增删）
+* 加载文档、切分、嵌入、写入Milvus向量数据库（增删）, 目前仅支持pdf \ markdown \ txt格式文件嵌入
 * 检索Milvus、取出检索文本
 * Milvus向量数据库存储文档embedding
     ```python
