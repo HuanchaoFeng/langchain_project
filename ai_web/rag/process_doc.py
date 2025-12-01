@@ -13,6 +13,9 @@ def load_pdf(file_path):
     return text
 
 # markdown
+'''
+如果不转换为html: #, *, - 等符号会影响 embedding
+'''
 def load_markdown(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         md_text = f.read()
