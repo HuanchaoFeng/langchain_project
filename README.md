@@ -1,5 +1,7 @@
 # 实现能够完成合同审查、文案审查以及通用对话的智能法务系统
 
+## author: Huanchao Feng
+
 ## 项目技术：
 FastAPI + LangGraph + Langchain + SQLite + PostgreSQL/Mysql
 * FastAPI实现系统服务化
@@ -10,6 +12,14 @@ FastAPI + LangGraph + Langchain + SQLite + PostgreSQL/Mysql
 
 ## 1、完成文档收集、清洗与向量存储
 
+* 加载文档、切分、嵌入、写入Milvus向量数据库
+* 检索Milvus、取出检索文本
+* Milvus向量数据库存储文档embedding
+    ```python
+    wget https://github.com/milvus-io/milvus/releases/download/v2.6.6/milvus-standalone-docker-compose.yml -O docker-compose.yml
+    docker compose up -d
+    docker-compose ps
+    ```
 
 ## 2、完成workflow搭建
 

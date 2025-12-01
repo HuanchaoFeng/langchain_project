@@ -1,0 +1,3 @@
+API_KEY = "sk-8e55e001e7254609bcad80bad01a4de4"
+QWEN_CHAT_MODEL_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+QWEN_EMBEDDING_MODEL = "text-embedding-v4"
