@@ -15,7 +15,7 @@ FastAPI + LangGraph + Langchain + SQLite + PostgreSQL/Mysql
 * SQLite实现LangGraph状态持久化
 * PostgreSQL/Mysql实现用户、会话持久化，用于查询、渲染功能
 
-## 1、完成文档收集、清洗与向量存储
+## 1、完成文档收集、清洗与向量存储(当前阶段)
 
 * 加载文档、切分、嵌入、写入Milvus向量数据库（增删）
 * 检索Milvus、取出检索文本
