@@ -14,7 +14,7 @@ FastAPI + LangGraph + Langchain + SQLite + PostgreSQL/Mysql
 
 ## 1、完成文档收集、清洗与向量存储
 
-* 加载文档、切分、嵌入、写入Milvus向量数据库
+* 加载文档、切分、嵌入、写入Milvus向量数据库（增删）
 * 检索Milvus、取出检索文本
 * Milvus向量数据库存储文档embedding
     ```python
