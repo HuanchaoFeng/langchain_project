@@ -15,7 +15,7 @@ def get_embed_model():
     return embedding_model
 
 # 对切分后的文档进行embedding操作
-def get_emb(documents, collection_name):
+def transfer_and_insert_emb(documents, collection_name):
     model = get_embed_model()
     milvus_datas = []
     for doc in documents:
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     collection_name = "rag_test"
     # 输入样例就长这样，再process_doc模块切分文件的时候，必须变成下面这个样子
     documents = [{"doc_id":"text", "doc_chunk":"what's this 4?"}]
-    print(get_emb(documents, collection_name))
+    print(transfer_and_insert_emb(documents, collection_name))
 
 
 

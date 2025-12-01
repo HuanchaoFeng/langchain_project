@@ -3,7 +3,7 @@ import pdfplumber
 import markdown
 from bs4 import BeautifulSoup
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from embedding import get_emb
+from embedding import transfer_and_insert_emb
 # pdf
 def load_pdf(file_path):
     text = ""
@@ -65,7 +65,8 @@ def file_to_documents(file_path):
     return documents
 
 if __name__ == "__main__":
-    file_path = "test.pdf"
+    file_path = "D:\\VscodeProject\\langchain_project\\ai_web\\rag\\konwledge\\test.txt"
+    collection_name = "rag_test"
     documents = file_to_documents(file_path)
-    res = get_emb(documents)
+    res = transfer_and_insert_emb(documents, collection_name)
     print(res)

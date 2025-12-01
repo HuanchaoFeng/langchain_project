@@ -19,8 +19,9 @@ client.load_collection("rag_test")
 
 res = client.query(
     collection_name="rag_test",
-    filter="doc_id == 'text'",
-    output_fields=["id", "doc_id", "chunk"]
+    # filter="doc_id == 'test'",
+    output_fields=["id", "doc_id", "chunk"],
+    limit = 10
 )
 
 print(f"查询结果：{res}")
