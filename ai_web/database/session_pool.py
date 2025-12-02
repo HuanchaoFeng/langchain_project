@@ -10,35 +10,29 @@ from log.log_util import logger
 from pool import pool
 import uuid
 
-class chat_message:
+class session:
     def __init__(self):
         pass
 
-    # 插入聊天数据
-    def insert_message(self, user_msg, ai_msg, session_id, username):
+    # 新增会话窗口
+    def create_session(self, title, username):
 
         connect = pool.connection()
         cursor = connect.cursor()
 
         insert_template = """
-            insert into chat_message(username, role, message, create_time, session_id, pair_id)
-            values(%s, %s, %s, %s, %s, %s)
+            insert into session(username, title, session_id, create_time)
+            values(%s, %s, %s, %s)
         """
         try:
-            #这块pair_id，加上，方便后续同时删掉问题和答案
-            pair_id = uuid.uuid4().hex 
-            # 存储human
+            session_id = uuid.uuid4().hex 
             cursor.execute(
                 insert_template,
-                (username, "Human", user_msg, datetime.now(), session_id, pair_id)
-            )
-
-            # 存储ai
-            cursor.execute(
-                    insert_template,
-                    (username, "AI", ai_msg, datetime.now(), session_id, pair_id)
+                (username, title, session_id, datetime.now())
             )
             connect.commit()
+
+            return session_id
         except Exception as e:
             connect.rollback()
             raise e
@@ -46,23 +40,47 @@ class chat_message:
             cursor.close()
             connect.close()
     
-    # 获取单个会话历史记录
-    def get_session_message(self, session_id):
+    # 修改会话title
+    def update_title(self, session_id, title):
+        
         connect = pool.connection()
         cursor = connect.cursor()
 
-        # 根据id排，因为id是自增、且插入的时候是先插human再插ai，所以id是human的先
+        update_template = """
+            UPDATE session SET title = %s WHERE session_id = %s
+        """
+
+        try:
+            cursor.execute(
+                update_template,
+                (title, session_id)
+            )
+            connect.commit()
+            return "修改成功"
+        
+        except Exception as e:
+            connect.rollback()
+            raise e
+        finally:
+            cursor.close()
+            connect.close()
+    
+    # 获取单个用户的所有会话
+    def get_sessions(self, username):
+        connect = pool.connection()
+        cursor = connect.cursor()
+
         select_template = """
             SELECT *
-            FROM chat_message
-            WHERE session_id = %s
+            FROM session
+            where username = %s
             ORDER BY id ASC;
         """
 
         try:
             cursor.execute(
                 select_template,
-                (session_id)
+                (username)
             )
             return cursor.fetchall()
         except Exception as e:
@@ -72,11 +90,11 @@ class chat_message:
             cursor.close()
             connect.close()
     
-    # 删除一对问答消息，只要点击删除其中一条，就直接按照pair，全删除掉
-    def delete_message(self, pair_id):
+    # 删除会话
+    def delete_session(self, session_id):
 
         delete_template = """
-            DELETE FROM chat_message WHERE pair_id=%s
+            DELETE FROM session WHERE session_id=%s
         """
 
         connect = pool.connection()
@@ -84,14 +102,14 @@ class chat_message:
 
         try:
             cursor.execute(
-                delete_template, (pair_id,)
+                delete_template, (session_id,)
             )
             connect.commit()
             return cursor.rowcount
 
         except Exception as e:
             connect.rollback()
-            logger.error("删除对话对失败：%s", e)
+            logger.error("删除会话失败：%s", e)
             raise e
 
         finally:
@@ -100,7 +118,7 @@ class chat_message:
 
 if __name__ == "__main__":
 
-    chat = chat_message()
-    # chat.insert_message("user_msg", "ai_msg", "session_id", "username")
-    # print(chat.get_session_message("session_id"))
-    print(chat.delete_message("1"))
+    s = session()
+    # print(s.create_session("新聊天记录", "lisi"))
+    # print(s.delete_session("d277f9a22b0c4bc09d648c94e31475eb"))
+    # print(s.update_title("c3dcb46d4c19471db1a4a08f1ce869dd", "update_title"))
