@@ -2,7 +2,7 @@
 
 ## 项目目标:实现能够完成合同审查、文案审查以及通用对话的智能AI审查系统
 
-## **tip:** 可能有一堆bug + 不符合企业要求，因为这是Huanchao Feng根据工作时一个项目思路构思的系统，没有太多用户反馈和产品规划
+## **tip:** 起步阶段，因为这是Huanchao Feng根据工作时一个项目思路构思的系统，没有太多用户反馈和产品规划
 
 ## Author: Huanchao Feng
 
@@ -35,5 +35,10 @@ FastAPI + LangGraph + Langchain + SQLite + PostgreSQL/Mysql
 
 ## 3、搭建数据库存储聊天记录，实现对话持久化功能
 流程：采用PostgreSQL或者Mysql实现数据库功能，对于聊天记录的存储，只存放AIMessage以及HumanMessage，截取每一轮对话的User和Ai（最终结果），保存至数据库，数据库存储包括：创建时间（根据时间来展示历史记录）、Type(AI/Human)、SessionId（会话窗口）、Titile（会话窗口的名称,可采用AI总结第一次对话内容或者直接截取第一次对话的前n个字符）、所属用户（账户），目前仅支持对话式，后期拓展文件上传功能
+
+Mysql数据库实现聊天记录存储：
+2张表：chat_message、session表
+* chat_message表存储全部会话的历史记录
+* session表存储会话的title
 
 ## 4、系统服务化处理
