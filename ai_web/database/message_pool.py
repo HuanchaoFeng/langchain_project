@@ -47,7 +47,7 @@ class chat_message:
             connect.close()
     
     # 获取单个会话历史记录
-    def get_session_message(session_id):
+    def get_session_message(self, session_id):
         connect = pool.connection()
         cursor = connect.cursor()
 
@@ -62,7 +62,7 @@ class chat_message:
         try:
             cursor.execute(
                 select_template,
-                (session_id,)
+                (session_id)
             )
             return cursor.fetchall()
         except Exception as e:
@@ -73,7 +73,7 @@ class chat_message:
             connect.close()
     
     # 删除一对问答消息，只要点击删除其中一条，就直接按照pair，全删除掉
-    def delete_message(pair_id):
+    def delete_message(self, pair_id):
 
         delete_template = """
             DELETE FROM chat_message WHERE pair_id=%s
@@ -104,4 +104,5 @@ class chat_message:
 if __name__ == "__main__":
 
     chat = chat_message()
-    chat.insert_message("user_msg", "ai_msg", "session_id", "username")
+    # chat.insert_message("user_msg", "ai_msg", "session_id", "username")
+    print(chat.get_session_message("session_id"))
