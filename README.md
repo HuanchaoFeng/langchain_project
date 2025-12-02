@@ -2,9 +2,9 @@
 
 ## 项目目标:实现能够完成合同审查、文案审查以及通用对话的智能AI审查系统
 
-## **tip:** 起步阶段，因为这是Huanchao Feng根据工作时一个项目思路构思的系统，没有太多用户反馈和产品规划
+#### **tip:** 起步阶段，因为这是Huanchao Feng根据工作时一个项目思路构思的系统，没有太多用户反馈和产品规划
 
-## Author: Huanchao Feng
+#### Author: Huanchao Feng
 
 ## 项目入口：./ai_web
 

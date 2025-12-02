@@ -15,7 +15,7 @@ def get_logger():
         )
         # 日志分片
         file_handler = RotatingFileHandler(
-            LOG_PATH, maxBytes=5*1024*1024, backupCount=3, encoding='utf-8'
+            LOG_PATH, maxBytes=5*1024*1024, backupCount=1024, encoding='utf-8'
         )
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
