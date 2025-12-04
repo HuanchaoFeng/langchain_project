@@ -33,11 +33,8 @@ def chat_with_qwen(query, session_id, username):
     # 添加当前轮次的query
     state["messages"].append({"role": "user", "content": query})
     resp = app.invoke(state)
-    # 保存消息 def insert_message(self, user_msg, ai_msg, session_id, username):
+    # 保存消息
     message_db.insert_message(query, resp["messages"][-1]["content"], session_id, username)
-
-
-
 
 if __name__ == "__main__":
     query = "请润色这句话: 错过了落日余晖，还可以静待满天繁星"
