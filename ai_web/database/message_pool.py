@@ -7,7 +7,7 @@ sys.path.append(str(ROOT))
 from datetime import datetime
 import threading
 from log.log_util import logger
-from pool import pool
+from database.pool import pool
 import uuid
 
 class chat_message:
@@ -47,7 +47,7 @@ class chat_message:
             connect.close()
     
     # 获取单个会话历史记录
-    def get_session_message(self, session_id):
+    def get_session_message(self, session_id, limit_nums):
         connect = pool.connection()
         cursor = connect.cursor()
 
@@ -56,13 +56,14 @@ class chat_message:
             SELECT *
             FROM chat_message
             WHERE session_id = %s
-            ORDER BY id ASC;
+            ORDER BY id Desc
+            limit %s;
         """
 
         try:
             cursor.execute(
                 select_template,
-                (session_id)
+                (session_id, limit_nums)
             )
             return cursor.fetchall()
         except Exception as e:

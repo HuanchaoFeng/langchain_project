@@ -1,0 +1,1 @@
+2025-12-04 14:53:47,895 - INFO - message_pool.py:70 - 查询失败：(1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 5' at line 5")

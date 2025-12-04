@@ -9,9 +9,9 @@ from operator import add
 from langchain.messages import AnyMessage
 from typing import Annotated
 from langgraph.graph import StateGraph, START, END
-from system_template import RECOGNITION_PROMPT, CONTRACT_PROMPT, PAPER_PROMPT
+from system_template import RECOGNITION_PROMPT, CONTRACT_PROMPT, PAPER_PROMPT, NORMAL_PROMPT
 from type_enum import TYPE_1, TYPE_2, TYPE_3
-
+from langchain.messages  import HumanMessage
 chat_model = ChatOpenAI(
     base_url = QWEN_CHAT_MODEL_URL,
     api_key = QWEN_API_KEY,
@@ -66,7 +66,7 @@ def paper_check(state: MessageState):
 
 def normal_llm(state: MessageState):
     user_query = state["user_query"]
-    system_message = [{"role": "system", "content": CONTRACT_PROMPT}]
+    system_message = [{"role": "system", "content": NORMAL_PROMPT}]
     human_message = [{"role": "user", "content": user_query}]
     resp = chat_model.invoke(system_message + human_message)
     return {
@@ -106,10 +106,12 @@ chat_flow.add_conditional_edges(
 
 app = chat_flow.compile()
 
+
+
 if __name__ == "__main__":
     init_state: MessageState = {
         "messages": [
-            {"role": "user", "content": "请润色这句话: 错过了落日余晖，还可以静待满天繁星"}
+            {"role": "Human", "content": "请润色这句话: 错过了落日余晖，还可以静待满天繁星"}
         ],
         "user_query": "",
         "intent": ""
