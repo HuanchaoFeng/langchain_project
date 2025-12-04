@@ -49,3 +49,13 @@ Mysql数据库实现聊天记录存储：
 * 用户权限开发
 * 限流操作（可使用令牌桶或者ip限流的方式进行，同时对于恶意刷接口操作进行黑名单管理）
 * 前端页面开发（只能基于vue嵌入html使用，只会这个）
+* fastapi安装：
+    ```python
+    pip install fastapi
+    pip install uvicorn
+    ```
+* 后端服务启动：
+    ```python
+    uvicorn api.main:app
+    uvicorn api.main:app --host 0.0.0.0 --port 8080 # 开放到其他机器访问本地
+    ```
