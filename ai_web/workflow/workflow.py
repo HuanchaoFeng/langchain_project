@@ -9,8 +9,8 @@ from operator import add
 from langchain.messages import AnyMessage
 from typing import Annotated
 from langgraph.graph import StateGraph, START, END
-from system_template import RECOGNITION_PROMPT, CONTRACT_PROMPT, PAPER_PROMPT, NORMAL_PROMPT
-from type_enum import TYPE_1, TYPE_2, TYPE_3
+from workflow.system_template import RECOGNITION_PROMPT, CONTRACT_PROMPT, PAPER_PROMPT, NORMAL_PROMPT
+from workflow.type_enum import TYPE_1, TYPE_2, TYPE_3
 from langchain.messages  import HumanMessage
 chat_model = ChatOpenAI(
     base_url = QWEN_CHAT_MODEL_URL,
