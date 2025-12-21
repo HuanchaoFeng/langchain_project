@@ -7,11 +7,11 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.append(str(ROOT))
 from dto.result import Result
 
-from rag.embedding import execute_embedding
+from rag.embedding import execute_embedding_single
 
 rag_router = APIRouter()
 
-UPLOAD_DIR = Path("D:\\VscodeProject\\langchain_project\\ai_web\\rag\\konwledge")
+UPLOAD_DIR = Path("D:\\VscodeProject\\langchain_project\\ai_web\\rag\\knowledge")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 collection_name = "rag_test"
@@ -36,7 +36,7 @@ async def upload_file(file: UploadFile, background_tasks: BackgroundTasks):
 
     # 注册后台任务
     background_tasks.add_task(
-        execute_embedding,
+        execute_embedding_single,
         file_path=str(save_path),
         collection_name="rag_test"
     )
