@@ -4,8 +4,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.append(str(ROOT))
 from settings.local import QWEN_API_KEY, QWEN_EMBEDDING_MODEL
-from milvus_util import milvus_insert
-from process_doc import file_to_documents
+from rag.milvus_util import milvus_insert
+from rag.process_doc import file_to_documents
 from log.log_util import logger
 
 # 嵌入模块：用于把document转变为嵌入向量、存入向量数据库
@@ -47,6 +47,16 @@ def execute_embedding(file_paths, collection_name):
         return f"部分文件处理失败，共 {len(errors)} 个"
     else:
         return "全部文件处理完成"
+    
+def execute_embedding_single(file_path, collection_name):
+    
+    try:
+        documents = file_to_documents(file_path)
+        result = transfer_and_insert_emb(documents, collection_name)
+    except ValueError as e:
+        logger.info("文件%s embedding出错, 错误信息: %s",file_path, e)
+        #TODO 修改任务状态：
+        raise e
 
 
 if __name__ == "__main__":
